@@ -18,6 +18,10 @@ connection.once('open', () => {
 
 app.get('/', (req, res) => res.send('Hello World!'))
 
+const projectsRouter = require('./routes/projects');
+
+app.use('/projects', projectsRouter);
+
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`)
 })
