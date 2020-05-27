@@ -18,7 +18,7 @@ export default class CreateProject extends Component {
     this.state = {
       name: '',
       description: '',
-      status: 'not-started',
+      status: 'Not Started',
       startDate: new Date(),
       endDate: new Date()
     }

@@ -1,72 +1,92 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux'
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import * as projectActions from '../redux/actions/projectActions'
+import PropTypes from 'prop-types'
+import {bindActionCreators} from 'redux'
 
-const Project = props => (
-    <tr>
-      <td>{props.project.name}</td>
-      <td>{props.project.description}</td>
-      <td>{props.project.startDate}</td>
-      <td>{props.project.endDate}</td>
-      <td>
-        <Link to={"/edit/"+props.project._id}>edit</Link> | <a href="#" onClick={() => { props.deleteProject(props.project._id) }}>delete</a>
-      </td>
-    </tr>
-  )
+// const Projects = ({ projects }) => (
+  
+// )
 
-  export default class ProjectList extends Component {
-    constructor(props) {
-      super(props);
-  
-      this.deleteProject = this.deleteProject.bind(this)
-  
-      this.state = {projects: []};
-    }
-  
-    componentDidMount() {
-      axios.get('http://localhost:5000/projects/')
-        .then(response => {
-          this.setState({ projects: response.data })
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-    }
-  
-    deleteProject(id) {
-      axios.delete('http://localhost:5000/projects/'+id)
-        .then(response => { console.log(response.data)});
-  
-      this.setState({
-        projects: this.state.projects.filter(el => el._id !== id)
-      })
-    }
-  
-    projectList() {
-      return this.state.projects.map(currentproject => {
-        return <Project project={currentproject} deleteProject={this.deleteProject} key={currentproject._id}/>;
-      })
-    }
-  
-    render() {
-      return (
-        <div>
-          <h3>All Projects</h3>
-          <table className="table">
-            <thead className="thead-light">
-              <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              { this.projectList() }
-            </tbody>
-          </table>
-        </div>
-      )
+class ProjectList extends Component {
+  constructor(props) {
+    super(props);
+
+    this.deleteProject = this.deleteProject.bind(this)
+  }
+
+  componentDidMount() {
+    console.log(this.props)
+    const {projects, actions} = this.props
+    // if (projects.length === 0){
+    //   this.props.actions.loadProjects().catch(error => {
+    //     alert('Loading projects failed ' + error)
+    //   })
+    // }
+    actions.loadProjects()
+    
+  }
+
+  deleteProject(id){
+    this.props.actions.deleteProject(id)
+  }
+
+  render() {
+    return (
+      <div>
+        <h2>Projects</h2>
+          <div>
+            <table className="table">
+              <thead className="thead-light">
+                <tr>
+                  <th>Name</th>
+                  <th>Description</th>
+                  <th>Start Date</th>
+                  <th>End Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {this.props.projects.map(project =>{
+                  return (
+                    <tr key={project._id}>
+                      <td>{project.name}</td>
+                      <td>{project.description}</td>
+                      <td>{project.startDate}</td>
+                      <td>{project.endDate}</td>
+                      <td>
+                        <Link to={"/edit/"+project._id}>edit</Link> | <Link to="/" onClick={() => this.deleteProject(project._id)}>delete</Link>
+                      </td>
+                    </tr>
+                  )
+                })}        
+              </tbody>
+            </table>
+          </div>
+      </div>
+    )
+  }
+}
+
+ProjectList.propTypes = {
+  projects: PropTypes.array.isRequired,
+  actions: PropTypes.object.isRequired
+}
+
+function mapStateToProps(state){
+  return{
+    projects: state.projects
+  }
+}
+
+function mapDispatchToProps(dispatch){
+  return{
+    actions: {
+      loadProjects: bindActionCreators(projectActions.loadProjects, dispatch),
+      deleteProject: bindActionCreators(projectActions.deleteProject, dispatch)
     }
   }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectList)

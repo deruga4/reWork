@@ -10,10 +10,10 @@ router.route('/').get((req, res) => {
 router.route('/add').post((req, res) => {
     const name = req.body.name
     const description = req.body.description
-    const status = req.body.status
     const startDate = Date.parse(req.body.startDate)
     const endDate = Date.parse(req.body.endDate)
-
+    const status = req.body.status
+    
     const newProject = new Project({
         name, 
         description,
@@ -25,7 +25,10 @@ router.route('/add').post((req, res) => {
 
     newProject.save()
         .then(() => res.json('Project added!'))
-        .catch(err => res.status(400).json('Error: ' + err))
+        .catch(err => {
+            console.log('Error: ' + newProject)
+            res.status(400).json('Error: ' + err)
+    })
 })
 
 router.route('/:id').get((req, res) => {
