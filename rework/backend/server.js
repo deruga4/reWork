@@ -19,8 +19,10 @@ connection.once('open', () => {
 app.get('/', (req, res) => res.send('Hello World!'))
 
 const projectsRouter = require('./routes/projects');
+const tasksRouter = require('./routes/tasks');
 
 app.use('/projects', projectsRouter);
+app.use('/tasks', tasksRouter)
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`)

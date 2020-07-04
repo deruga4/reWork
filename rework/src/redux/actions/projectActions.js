@@ -42,12 +42,23 @@ export function createProjectSuccess(project){
 export function createProject(project){
   return function(dispatch){
     console.log('create project action called')
-    const projectData = JSON.stringify(project)
     return axios.post('http://localhost:5000/projects/add', project)
     .then(response => {
       dispatch({type: types.CREATE_PROJECT, project})
     })
     .catch((error) =>{
+      console.log(error)
+    })
+  }
+}
+
+export function getById(id){
+  return function(dispatch){
+    return axios.get('http://localhost:5000/projects/' + id)
+    .then(response => {
+      dispatch({type: types.GET_PROJECT_BY_ID, id})
+    })
+    .catch((error) => {
       console.log(error)
     })
   }

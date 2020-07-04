@@ -8,14 +8,20 @@ router.route('/').get((req, res) => {
 })
 
 router.route('/add').post((req, res) => {
-    const name = req.body.username
+    const name = req.body.name
     const description = req.body.description
     const status = req.body.status
+    const startDate = Date.parse(req.body.startDate)
+    const endDate = Date.parse(req.body.endDate)
+    const project = req.body.project
 
     const newTask = new Task({
         name, 
         description,
-        status
+        status,
+        startDate,
+        endDate,
+        project
     })
 
     newTask.save()

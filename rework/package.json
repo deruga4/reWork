@@ -9,6 +9,7 @@
     "axios": "^0.19.2",
     "classnames": "^2.2.6",
     "concurrently": "^5.2.0",
+    "date-fns": "^2.14.0",
     "jwt-decode": "^2.2.0",
     "npm-run-all": "^4.1.5",
     "react": "^16.12.0",

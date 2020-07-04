@@ -5,6 +5,7 @@ router.route('/').get((req, res) => {
     Project.find()
         .then(projects => res.json(projects))
         .catch(err => res.status(400).json('Error: ' + err))
+
 })
 
 router.route('/add').post((req, res) => {
@@ -35,6 +36,7 @@ router.route('/:id').get((req, res) => {
     Project.findById(req.params.id)
         .then(project => res.json(project))
         .catch(err => res.status(400).json('Error: ' + err))
+
 })
 
 router.route('/:id').delete((req, res) => {

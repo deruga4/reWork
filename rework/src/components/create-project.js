@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
-import {createProject} from '../redux/actions/projectActions'
+import * as projectActions from '../redux/actions/projectActions'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
@@ -155,16 +155,21 @@ CreateProject.propTypes = {
 
 function mapStateToProps(state){
   return{
-    projects: state.projects
+    
   }
 }
 
+// function mapDispatchToProps(dispatch){
+//   return{
+//     actions: {
+//       createProject: bindActionCreators(projectActions.createProject, dispatch),
+//     }
+//   }
+// }
 function mapDispatchToProps(dispatch){
   return{
-    actions: {
-      createProject: bindActionCreators(createProject, dispatch),
-    }
+    createProject: bindActionCreators(projectActions.createProject, dispatch),
   }
 }
 
-export default connect(mapStateToProps, {createProject})(CreateProject)
+export default connect(mapStateToProps, mapDispatchToProps)(CreateProject)

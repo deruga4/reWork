@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import * as projectActions from '../redux/actions/projectActions'
 import PropTypes from 'prop-types'
 import {bindActionCreators} from 'redux'
+import {format} from 'date-fns'
 
 // const Projects = ({ projects }) => (
   
@@ -17,7 +18,6 @@ class ProjectList extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props)
     const {projects, actions} = this.props
     // if (projects.length === 0){
     //   this.props.actions.loadProjects().catch(error => {
@@ -53,7 +53,7 @@ class ProjectList extends Component {
                     <tr key={project._id}>
                       <td>{project.name}</td>
                       <td>{project.description}</td>
-                      <td>{project.startDate}</td>
+                      <td>{format(new Date(project.startDate), 'yyyy-MM-dd GGGG')}</td>
                       <td>{project.endDate}</td>
                       <td>
                         <Link to={"/edit/"+project._id}>edit</Link> | <Link to="/" onClick={() => this.deleteProject(project._id)}>delete</Link>

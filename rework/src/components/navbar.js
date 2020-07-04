@@ -10,6 +10,7 @@ export default class Navbar extends Component {
         <Link to="/" className="brand-logo">re:Work</Link>
         <ul id="nav-mobile" className="right hide-on-med-and-down">
           <li><Link to="/create-project" className="nav-link">Create Project</Link></li>
+          <li><Link to="/create-task" className="nav-link">Create Task</Link></li>
         </ul>
       </div>
     </nav>
