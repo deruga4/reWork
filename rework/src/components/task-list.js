@@ -18,7 +18,6 @@ class TaskList extends Component {
   }
 
   componentDidMount() {
-    const {tasks, actions} = this.props
     // if (projects.length === 0){
     //   this.props.actions.loadProjects().catch(error => {
     //     alert('Loading projects failed ' + error)

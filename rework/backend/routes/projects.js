@@ -51,6 +51,8 @@ router.route('/update/:id').post((req, res) => {
             project.name = req.body.name
             project.description = req.body.description
             project.status = req.body.status
+            project.startDate = req.body.startDate
+            project.endDate = req.body.endDate
 
             project.save()
                 .then(() => res.json('Project updated!'))

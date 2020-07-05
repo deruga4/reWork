@@ -51,12 +51,12 @@ class ProjectList extends Component {
                 {this.props.projects.map(project =>{
                   return (
                     <tr key={project._id}>
-                      <td><Link to={`tasks/${project._id}`}>{project.name}</Link></td>
+                      <td><Link to={`project/${project._id}`}>{project.name}</Link></td>
                       <td>{project.description}</td>
                       <td>{format(new Date(project.startDate), 'yyyy-MM-dd GGGG')}</td>
                       <td>{project.endDate}</td>
                       <td>
-                        <Link to={"/edit/"+project._id}>edit</Link> | <Link to="/" onClick={() => this.deleteProject(project._id)}>delete</Link>
+                        <Link to={"/project/edit/"+project._id}>edit</Link> | <Link to="/" onClick={() => this.deleteProject(project._id)}>delete</Link>
                       </td>
                     </tr>
                   )

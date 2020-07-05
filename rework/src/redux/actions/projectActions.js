@@ -63,3 +63,9 @@ export function getById(id){
     })
   }
 }
+
+export function editProject(id){
+  return function(dispatch){
+    return axios.post('http://localhost:5000/projects/update/' + id)
+  }
+}

@@ -20,10 +20,8 @@ function App() {
         <Route path='/create-project' component={CreateProject}></Route>
         <Route path='/create-task' component={CreateTask}></Route>
         <Route path='/all-tasks' component={TaskList}></Route> 
-        <Route path='/tasks/:id' component={TaskList}></Route> 
-        {/* <Route path="/edit/:id" component={EditExercise} />
-        <Route path="/create" component={CreateExercise} />
-        <Route path="/user" component={CreateUser} /> */}
+        <Route path='/project/:id' component={TaskList}></Route> 
+        <Route path='/project/edit/:id' component={TaskList}></Route> 
       </div>
     </Router>
    
