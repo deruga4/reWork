@@ -7,6 +7,7 @@ import ProjectList from './components/project-list'
 import CreateProject from './components/create-project'
 import CreateTask from './components/create-task'
 import ProjectDetail from './components/project-detail'
+import TaskList from './components/task-list'
 
 function App() {
   return (
@@ -18,6 +19,8 @@ function App() {
         <Route path="/" exact component={ProjectList} />
         <Route path='/create-project' component={CreateProject}></Route>
         <Route path='/create-task' component={CreateTask}></Route>
+        <Route path='/all-tasks' component={TaskList}></Route> 
+        <Route path='/tasks/:id' component={TaskList}></Route> 
         {/* <Route path="/edit/:id" component={EditExercise} />
         <Route path="/create" component={CreateExercise} />
         <Route path="/user" component={CreateUser} /> */}

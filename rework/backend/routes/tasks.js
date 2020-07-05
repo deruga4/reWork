@@ -2,9 +2,18 @@ const router = require('express').Router()
 let Task = require('../models/task')
 
 router.route('/').get((req, res) => {
-    Task.find()
+    if (req.query.id){
+        console.log(req.query.id)
+        Task.find({project: req.query.id})
         .then(tasks => res.json(tasks))
         .catch(err => res.status(400).json('Error: ' + err))
+    }
+    else{
+        Task.find()
+        .then(tasks => res.json(tasks))
+        .catch(err => res.status(400).json('Error: ' + err))
+    }
+    
 })
 
 router.route('/add').post((req, res) => {

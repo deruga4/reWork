@@ -25,7 +25,7 @@ class ProjectList extends Component {
     //   })
     // }
     actions.loadProjects()
-    
+    console.log(this.props.projects) 
   }
 
   deleteProject(id){
@@ -51,7 +51,7 @@ class ProjectList extends Component {
                 {this.props.projects.map(project =>{
                   return (
                     <tr key={project._id}>
-                      <td>{project.name}</td>
+                      <td><Link to={`tasks/${project._id}`}>{project.name}</Link></td>
                       <td>{project.description}</td>
                       <td>{format(new Date(project.startDate), 'yyyy-MM-dd GGGG')}</td>
                       <td>{project.endDate}</td>
@@ -60,7 +60,7 @@ class ProjectList extends Component {
                       </td>
                     </tr>
                   )
-                })}        
+                })}
               </tbody>
             </table>
           </div>

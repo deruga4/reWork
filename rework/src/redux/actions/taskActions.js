@@ -1,19 +1,22 @@
 import * as types from './actionTypes'
 import axios from 'axios';
 
-export function loadTasks(){
-    return function(dispatch){
-        // TODO: call the projects api and call the action
-        return function(dispatch){
-            return axios.get('http://localhost:5000/tasks/')
-            .then(response => {
-              dispatch({type: types.LOAD_TASKS_SUCCESS, tasks: response.data})
-            })
-            .catch((error) => {
-              console.log(error);
-            })
-        }
-    }
+export function loadTasks(id){
+  return function(dispatch){
+    return axios.get('http://localhost:5000/tasks/', {
+      params: {
+        id: id
+      }
+    })
+    .then(response => {
+      console.log('taskActions response.data: ' + response.data)
+      dispatch({type: types.LOAD_TASKS_SUCCESS, tasks: response.data})
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+  }
+
 }
 
 export function createTask(task){
@@ -26,4 +29,10 @@ export function createTask(task){
         console.log(error)
       })
     }
+}
+
+export function deleteTask(id){
+  return function(dispatch){
+    return
+  }
 }
