@@ -5,10 +5,10 @@ import * as projectActions from '../redux/actions/projectActions'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
+import axios from 'axios';
 
 
-
-class CreateProject extends Component {
+class EditProject extends Component {
   constructor(props) {
     super(props);
 
@@ -38,15 +38,35 @@ class CreateProject extends Component {
     //     .catch((error) =>{
     //       console.log(error)
     //     })
-    projectId = this.props.match.params.id 
+
+    let projectId = this.props.match.params.id
+    
+    
+    
+
     if (!projectId){
         console.log('Edit project: an error occurred!')
         window.location = '/';
     }
 
-    // get the project info from db
 
-    //populate this.state
+
+    // get the project info from db
+    axios.get('http://localhost:5000/projects/' + projectId)
+    .then(response => {
+        let projectData = response.data
+        console.log(projectData)
+        this.setState({
+            name: projectData.name,
+            description: projectData.description,
+            status: projectData.status,
+            startDate: Date.parse(projectData.startDate),
+            endDate: Date.parse(projectData.endDate)
+        })
+    })
+    .catch((error) => {
+      console.log(error)
+    })
     
   }
 
@@ -79,7 +99,6 @@ class CreateProject extends Component {
     // axios.post('http://localhost:5000/projects/add', project)
     //   .then(res => console.log(res.data));
 
-    console.log(this.state)
     const newProject = {
       name: this.state.name,
       description: this.state.description,
@@ -87,7 +106,8 @@ class CreateProject extends Component {
       startDate: this.state.startDate,
       endDate: this.state.endDate
     }
-    this.props.editProject(newProject)
+    let projectId = this.props.match.params.id
+    this.props.editProject(projectId, newProject)
 
     window.location = '/';
   }
@@ -96,7 +116,7 @@ class CreateProject extends Component {
     return (
     <div>
     <br></br>
-    <h3>Create New Project</h3>
+    <h3>Edit Project</h3>
     <form onSubmit={this.onSubmit}>
         <div className="form-group"> 
         <label>Project Name</label>
@@ -165,7 +185,7 @@ EditProject.propTypes = {
 
 function mapStateToProps(state){
   return{
-    
+    projects: state.projects
   }
 }
 
@@ -179,7 +199,8 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch){
   return{
     editProject: bindActionCreators(projectActions.editProject, dispatch),
+    loadProjects: bindActionCreators(projectActions.loadProjects, dispatch),
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateProject)
+export default connect(mapStateToProps, mapDispatchToProps)(EditProject)

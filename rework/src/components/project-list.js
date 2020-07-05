@@ -53,6 +53,7 @@ class ProjectList extends Component {
                     <tr key={project._id}>
                       <td><Link to={`project/${project._id}`}>{project.name}</Link></td>
                       <td>{project.description}</td>
+                      <td>{project.status}</td>
                       <td>{format(new Date(project.startDate), 'yyyy-MM-dd GGGG')}</td>
                       <td>{project.endDate}</td>
                       <td>

@@ -56,7 +56,7 @@ export function getById(id){
   return function(dispatch){
     return axios.get('http://localhost:5000/projects/' + id)
     .then(response => {
-      dispatch({type: types.GET_PROJECT_BY_ID, id})
+      dispatch({type: types.GET_PROJECT_BY_ID})
     })
     .catch((error) => {
       console.log(error)
@@ -64,8 +64,14 @@ export function getById(id){
   }
 }
 
-export function editProject(id){
+export function editProject(id, project){
   return function(dispatch){
-    return axios.post('http://localhost:5000/projects/update/' + id)
+    return axios.post('http://localhost:5000/projects/update/' + id, project)
+    .then(response => { 
+      dispatch({type: types.EDIT_PROJECT, id, project: response.data})
+    })
+    .catch(error => {
+      console.log(error)
+    })
   }
 }

@@ -12,6 +12,16 @@ export default function projectReducer(state = initialState.projects, action){
         case types.DELETE_PROJECT:{
             return [...state.filter((data) => data._id !== action.data)]
         }
+        case types.EDIT_PROJECT:
+            return state.map((project, index) => {
+                if (action.id !== project.id){
+                    return project
+                }
+                return{
+                    ...project,
+                    ...action.project
+                }
+            })
         default: 
             return state
     }
