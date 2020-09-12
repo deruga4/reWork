@@ -78,8 +78,9 @@ class CreateProject extends Component {
       endDate: this.state.endDate
     }
     this.props.createProject(newProject)
+     
+    window.location = '/'
 
-    window.location = '/';
   }
 
   render() {

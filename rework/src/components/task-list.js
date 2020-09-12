@@ -55,7 +55,7 @@ class TaskList extends Component {
                       <td>{format(new Date(task.startDate), 'yyyy-MM-dd GGGG')}</td>
                       <td>{task.endDate}</td>
                       <td>
-                        <Link to={"/edit/"+task._id}>edit</Link> | <Link to="/" onClick={() => this.deleteTask(task._id)}>delete</Link>
+                        <Link to={"/task/edit/"+task._id}>edit</Link> | <Link to="/" onClick={() => this.deleteTask(task._id)}>delete</Link>
                       </td>
                     </tr>
                   )

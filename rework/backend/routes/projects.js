@@ -12,8 +12,10 @@ router.route('/add').post((req, res) => {
     const name = req.body.name
     const description = req.body.description
     const startDate = Date.parse(req.body.startDate)
-    const endDate = Date.parse(req.body.endDate)
+    const endDate = req.body.endDate === null ? null : Date.parse(req.body.endDate)
     const status = req.body.status
+
+    console.log(req.body.endDate)
     
     const newProject = new Project({
         name, 
@@ -52,7 +54,7 @@ router.route('/update/:id').post((req, res) => {
             project.description = req.body.description
             project.status = req.body.status
             project.startDate = req.body.startDate
-            project.endDate = req.body.endDate
+            project.endDate = req.body.endDate === null ? null : Date.parse(req.body.endDate)
 
             project.save()
                 .then(() => res.json('Project updated!'))

@@ -8,6 +8,16 @@ export default function taskReducer(state = initialState.tasks, action){
             return action.tasks
         case types.CREATE_TASK:
             return [...state, action.taskData]
+        case types.EDIT_TASK:
+            return state.map((task, index) => {
+                if (action.id !== task.id){
+                    return task
+                }
+                return{
+                    ...task,
+                    ...action.task
+                }
+            })
         default: 
             return state
     }

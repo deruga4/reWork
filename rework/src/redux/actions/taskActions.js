@@ -36,3 +36,15 @@ export function deleteTask(id){
     return
   }
 }
+
+export function editTask(id, task){
+  return function(dispatch){
+    return axios.post('http://localhost:5000/tasks/update/' + id, task)
+    .then(response =>{
+      dispatch({type: types.EDIT_TASK, id, task: response.data})
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  }
+}

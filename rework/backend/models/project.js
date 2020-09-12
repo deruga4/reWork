@@ -6,7 +6,7 @@ const projectSchema = new Schema({
     description: {type: String, required: false},
     status: {type: String, required: true, enum: ['Not Started', 'In Progress', 'Completed', 'On Hold']},
     startDate: {type:Date, required: true},
-    endDate: {type:Date},
+    endDate: {type:Date, required: false},
 },{
     timestamps: true,
 })

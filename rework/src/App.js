@@ -9,6 +9,7 @@ import CreateTask from './components/create-task'
 import ProjectDetail from './components/project-detail'
 import TaskList from './components/task-list'
 import EditProject from './components/edit-project'
+import EditTask from './components/edit-task'
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path='/all-tasks' component={TaskList}></Route> 
         <Route exact path='/project/:id' component={TaskList}></Route> 
         <Route path='/project/edit/:id' component={EditProject}></Route> 
+        <Route path='/task/edit/:id' component={EditTask}></Route> 
       </div>
     </Router>
    
