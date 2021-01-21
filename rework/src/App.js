@@ -22,7 +22,7 @@ function App() {
         <Route path='/create-project' component={CreateProject}></Route>
         <Route path='/create-task' component={CreateTask}></Route>
         <Route path='/all-tasks' component={TaskList}></Route> 
-        <Route exact path='/project/:id' component={TaskList}></Route> 
+        <Route exact path='/project/:id' component={ProjectDetail}></Route> 
         <Route path='/project/edit/:id' component={EditProject}></Route> 
         <Route path='/task/edit/:id' component={EditTask}></Route> 
       </div>

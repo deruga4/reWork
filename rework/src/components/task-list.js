@@ -27,7 +27,7 @@ class TaskList extends Component {
     console.log(this.props.match.params.id)
   }
 
-  deleteTask(id){
+  async deleteTask(id){
     this.props.actions.deleteTask(id)
   }
 

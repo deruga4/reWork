@@ -33,7 +33,14 @@ export function createTask(task){
 
 export function deleteTask(id){
   return function(dispatch){
-    return
+    return axios.delete('http://localhost:5000/tasks/' + id)
+      .then(response => {
+        dispatch({type: types.DELETE_TASK, id})
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+
   }
 }
 

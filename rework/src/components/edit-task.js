@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import * as taskActions from '../redux/actions/taskActions'
+import * as projectActions from '../redux/actions/projectActions'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
@@ -16,8 +17,10 @@ class EditTask extends Component {
     this.onChangeStartDate = this.onChangeStartDate.bind(this)
     this.onChangeEndDate = this.onChangeEndDate.bind(this)
     this.onSubmit = this.onSubmit.bind(this);
+    this.onChangeProject = this.onChangeProject.bind(this)
 
     this.state = {
+      project: null,
       name: '',
       description: '',
       status: 'Not Started',
@@ -51,12 +54,13 @@ class EditTask extends Component {
 
 
 
-    // get the project info from db
-    axios.get('http://localhost:5000/task/' + taskId)
+    // get the task info from db
+    axios.get('http://localhost:5000/tasks/' + taskId)
     .then(response => {
         let taskData = response.data
         console.log(taskData)
         this.setState({
+            project: taskData.project,
             name: taskData.name,
             description: taskData.description,
             status: taskData.status,
@@ -67,6 +71,8 @@ class EditTask extends Component {
     .catch((error) => {
       console.log(error)
     })
+
+    this.props.loadProjects()
     
   }
 
@@ -80,6 +86,11 @@ class EditTask extends Component {
   }
   onChangeEndDate(e){
     this.setState({endDate: e} )
+  }
+
+  onChangeProject(e){
+    console.log('onchange project: ' + e.target.value)
+    this.setState({project: e.target.value})
   }
   
 
@@ -100,6 +111,7 @@ class EditTask extends Component {
     //   .then(res => console.log(res.data));
 
     const newTask = {
+      project: this.state.project,
       name: this.state.name,
       description: this.state.description,
       status: this.state.status,
@@ -119,7 +131,26 @@ class EditTask extends Component {
     <h3>Edit Task</h3>
     <form onSubmit={this.onSubmit}>
         <div className="form-group"> 
-        <label>Project Name</label>
+
+        <label>Parent project</label>
+          <div className="form-group">
+            <select
+              onChange={this.onChangeProject}
+              name='project'>
+              
+              {this.props.projects.map(project => {
+                // if (this.props.project._id = project._id){
+                //   return (<option value={project._id} key={project._id} selected='selected'>{project.name}</option>)
+                // }
+                // else{
+                  return (<option value={project._id} key={project._id}>{project.name}</option>)
+                // }
+              })}
+            </select>
+            
+          </div>
+
+        <label>Task Name</label>
         <input required type="text" id="task-name" name="name" value={this.state.name} onChange={this.onChange}></input>
         </div>
         <div className="form-group"> 
@@ -185,7 +216,8 @@ EditTask.propTypes = {
 
 function mapStateToProps(state){
   return{
-    tasks: state.tasks
+    tasks: state.tasks,
+    projects: state.projects
   }
 }
 
@@ -200,6 +232,7 @@ function mapDispatchToProps(dispatch){
   return{
     editTask: bindActionCreators(taskActions.editTask, dispatch),
     loadTasks: bindActionCreators(taskActions.loadTasks, dispatch),
+    loadProjects: bindActionCreators(projectActions.loadProjects, dispatch)
   }
 }
 
