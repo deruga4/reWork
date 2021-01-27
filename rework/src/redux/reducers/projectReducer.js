@@ -13,15 +13,20 @@ export default function projectReducer(state = initialState.projects, action){
             return [...state.filter((data) => data._id !== action.data)]
         }
         case types.EDIT_PROJECT:
-            return state.map((project, index) => {
-                if (action.id !== project.id){
-                    return project
-                }
-                return{
-                    ...project,
-                    ...action.project
-                }
+            return Object.assign({}, state, {
+                data: state.data.map(item => {
+                    return item.id === action.payload.id ? action.payload : item
+                })
             })
+            // return state.map((project, index) => {
+            //     if (action.id !== project.id){
+            //         return project
+            //     }
+            //     return{
+            //         ...project,
+            //         ...action.project
+            //     }
+            // })
         default: 
             return state
     }

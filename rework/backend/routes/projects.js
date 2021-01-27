@@ -48,17 +48,23 @@ router.route('/:id').delete((req, res) => {
 })
 
 router.route('/update/:id').post((req, res) => {
+    console.log(req.body.name)
+    console.log(req.body.description)
+    console.log(req.body.startDate)
     Project.findById(req.params.id)
         .then(project => {
             project.name = req.body.name
             project.description = req.body.description
             project.status = req.body.status
-            project.startDate = req.body.startDate
-            project.endDate = req.body.endDate === null ? null : Date.parse(req.body.endDate)
+            project.startDate = new Date(req.body.startDate)
+            project.endDate = req.body.endDate === null ? null : new Date(req.body.endDate)
 
             project.save()
                 .then(() => res.json('Project updated!'))
-                .catch(err => res.status(400).json('Error ' + err))
+                .catch(err => {
+                    res.status(400).json('Error ' + err)
+                    console.log('Error occurred ' + err)
+                })
         })
         .catch(err => res.status(400).json('Error: ' + err))
 })

@@ -77,10 +77,11 @@ class EditProject extends Component {
   }
 
   onChangeStartDate(e){
-    this.setState({startDate: e})
+    this.setState({startDate: new Date(e)})
   }
   onChangeEndDate(e){
-    this.setState({endDate: e} )
+    console.log(e)
+    this.setState({endDate: new Date(e)} )
   }
   
 

@@ -68,7 +68,7 @@ export function editProject(id, project){
   return function(dispatch){
     return axios.post('http://localhost:5000/projects/update/' + id, project)
     .then(response => { 
-      dispatch({type: types.EDIT_PROJECT, id, project: response.data})
+      dispatch({type: types.EDIT_PROJECT, id, project})
     })
     .catch(error => {
       console.log(error)
