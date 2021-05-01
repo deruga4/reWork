@@ -50,8 +50,7 @@ class CreateProject extends Component {
   }
   onChangeEndDate(e){
     this.setState({endDate: e} )
-  }
-  
+  }  
 
   onSubmit(e) {
     e.preventDefault();
@@ -95,7 +94,7 @@ class CreateProject extends Component {
         </div>
         <div className="form-group"> 
           <label>Description</label>
-          <input  type="text"
+          <textarea
               required
               className="form-control"
               value={this.state.description}

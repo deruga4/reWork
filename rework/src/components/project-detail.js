@@ -54,8 +54,8 @@ class EditProject extends Component {
             name: projectData.name,
             description: projectData.description,
             status: projectData.status,
-            startDate: Date.parse(projectData.startDate),
-            endDate: Date.parse(projectData.endDate)
+            startDate: projectData.startDate === null ? null : Date.parse(projectData.startDate),
+            endDate: projectData.endDate === null ? null : Date.parse(projectData.endDate)
         })
     })
     .catch((error) => {
@@ -70,8 +70,8 @@ class EditProject extends Component {
         <br></br>
         <h3>{this.state.name}</h3>
         <p>{this.state.description}</p>
-        <p>Start date: {format(this.state.startDate, 'yyyy/MM/dd')}</p>
-        <p>End date: {format(this.state.endDate, 'yyyy/MM/dd')}</p>
+        <p>Start date: {this.state.startDate === null ? null : format(this.state.startDate, 'yyyy/MM/dd')}</p>
+        <p>End date: {this.state.endDate === null ? null : format(this.state.endDate, 'yyyy/MM/dd')}</p>
         <p>Status: {this.state.status}</p>
 
    

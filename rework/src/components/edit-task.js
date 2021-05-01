@@ -20,7 +20,7 @@ class EditTask extends Component {
     this.onChangeProject = this.onChangeProject.bind(this)
 
     this.state = {
-      project: null,
+      project: '',
       name: '',
       description: '',
       status: 'Not Started',
@@ -52,13 +52,12 @@ class EditTask extends Component {
         window.location = '/';
     }
 
-
+    this.props.loadProjects()
 
     // get the task info from db
     axios.get('http://localhost:5000/tasks/' + taskId)
     .then(response => {
         let taskData = response.data
-        console.log(taskData)
         this.setState({
             project: taskData.project,
             name: taskData.name,
@@ -72,7 +71,9 @@ class EditTask extends Component {
       console.log(error)
     })
 
-    this.props.loadProjects()
+    
+    console.log(this.state.project)
+    console.log(this.props.projects)
     
   }
 
@@ -82,10 +83,11 @@ class EditTask extends Component {
   }
 
   onChangeStartDate(e){
-    this.setState({startDate: e})
+    this.setState({startDate: new Date(e)})
   }
   onChangeEndDate(e){
-    this.setState({endDate: e} )
+    this.setState({endDate: new Date(e)} )
+    console.log(this.state.endDate)
   }
 
   onChangeProject(e){
@@ -121,7 +123,7 @@ class EditTask extends Component {
     let taskId = this.props.match.params.id
     this.props.editTask(taskId, newTask)
 
-    window.location = '/';
+    window.location = '/all-tasks';
   }
 
   render() {
@@ -137,7 +139,7 @@ class EditTask extends Component {
             <select
               onChange={this.onChangeProject}
               name='project'>
-              
+              <option value=''>(blank)</option>
               {this.props.projects.map(project => {
                 // if (this.props.project._id = project._id){
                 //   return (<option value={project._id} key={project._id} selected='selected'>{project.name}</option>)

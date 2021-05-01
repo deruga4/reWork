@@ -56,6 +56,8 @@ router.route('/update/:id').post((req, res) => {
             task.name = req.body.name
             task.description = req.body.description
             task.status = req.body.status
+            task.startDate = new Date(req.body.startDate)
+            task.endDate = req.body.endDate === null ? null : new Date(req.body.endDate)
 
             task.save()
                 .then(() => res.json('Task updated!'))
