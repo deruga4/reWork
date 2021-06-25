@@ -75,7 +75,7 @@ class EditTask extends Component {
     })
 
     
-    console.log(this.props.projects)
+    console.log(this.state.project)
     
   }
 
@@ -144,8 +144,8 @@ class EditTask extends Component {
               name='project'>
               <option value=''>(blank)</option>
               {this.props.projects.map(project => {
-                if ((this.state.project == null ? '' : this.state.project._id) == project._id){
-                  return (<option value={project._id} key={project._id} selected>{project.name + '-' + this.state.project._id}</option>)
+                if (this.state.project === project._id){
+                  return (<option value={project._id} key={project._id} selected>{project.name}</option>)
                 }
                 else{
                   return (<option value={project._id} key={project._id}>{project.name}</option>)
