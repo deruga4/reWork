@@ -51,8 +51,11 @@ router.route('/:id').delete((req, res) => {
 })
 
 router.route('/update/:id').post((req, res) => {
+    console.log('updating task')
     Task.findById(req.params.id)
         .then(task => {
+            console.log(req.body.project)
+            task.project = req.body.project
             task.name = req.body.name
             task.description = req.body.description
             task.status = req.body.status
@@ -63,7 +66,11 @@ router.route('/update/:id').post((req, res) => {
                 .then(() => res.json('Task updated!'))
                 .catch(err => status(400).json('Error ' + err))
         })
-        .catch(err => res.status(400).json('Error: ' + err))
+        .catch(err => {
+            console.log(err)
+            res.status(400).json('Error: ' + err)
+            
+    })
 })
 
 module.exports = router

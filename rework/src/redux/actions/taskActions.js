@@ -45,10 +45,13 @@ export function deleteTask(id){
 }
 
 export function editTask(id, task){
+  console.log('called editTask')
   return function(dispatch){
+    console.log('editing task http://localhost:5000/tasks/update/' + id)
+    console.log(task)
     return axios.post('http://localhost:5000/tasks/update/' + id, task)
     .then(response =>{
-      dispatch({type: types.EDIT_TASK, id, task: response.data})
+      dispatch({type: types.EDIT_TASK, id, task})
     })
     .catch((error) => {
       console.log(error)

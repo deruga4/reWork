@@ -33,13 +33,14 @@ class TaskList extends Component {
     actions.loadProjects().then(() => {
       this.setState({projects: this.props.projects})
       console.log(this.state.projects)
+      console.log(this.props.tasks)
     })
     
     console.log(this.props.match.params.id)
   }
 
   async deleteTask(id){
-    this.props.actions.deleteTask(id)
+    this.props.actions.deleteTask(id)  
   }
 
   render() {

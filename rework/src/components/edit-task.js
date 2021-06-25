@@ -67,12 +67,14 @@ class EditTask extends Component {
             endDate: Date.parse(taskData.endDate)
         })
     })
+    .then(() => {
+      console.log(this.state.project)      
+    })
     .catch((error) => {
       console.log(error)
     })
 
     
-    console.log(this.state.project)
     console.log(this.props.projects)
     
   }
@@ -97,6 +99,7 @@ class EditTask extends Component {
   
 
   onSubmit(e) {
+    console.log(this.state)
     e.preventDefault();
 
     // const project = {
@@ -109,7 +112,7 @@ class EditTask extends Component {
 
     // console.log(project);
 
-    // axios.post('http://localhost:5000/projects/add', project)
+    // axios.post('http://localhost:5000/p1rojects/add', project)
     //   .then(res => console.log(res.data));
 
     const newTask = {
@@ -120,7 +123,7 @@ class EditTask extends Component {
       startDate: this.state.startDate,
       endDate: this.state.endDate
     }
-    let taskId = this.props.match.params.id
+    const taskId = this.props.match.params.id
     this.props.editTask(taskId, newTask)
 
     window.location = '/all-tasks';
@@ -141,12 +144,12 @@ class EditTask extends Component {
               name='project'>
               <option value=''>(blank)</option>
               {this.props.projects.map(project => {
-                // if (this.props.project._id = project._id){
-                //   return (<option value={project._id} key={project._id} selected='selected'>{project.name}</option>)
-                // }
-                // else{
+                if ((this.state.project == null ? '' : this.state.project._id) == project._id){
+                  return (<option value={project._id} key={project._id} selected>{project.name + '-' + this.state.project._id}</option>)
+                }
+                else{
                   return (<option value={project._id} key={project._id}>{project.name}</option>)
-                // }
+                }
               })}
             </select>
             
